@@ -11,6 +11,7 @@ namespace TECHNICALTEST_AS_ME.Domains.Models
         public int CategoryID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
         public IList<Product> Products { get; set; } = new List<Product>();
         
     }
