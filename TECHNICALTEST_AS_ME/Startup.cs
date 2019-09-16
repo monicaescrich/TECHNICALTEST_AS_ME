@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using TECHNICALTEST_AS_ME.Domains.Repositories;
 using TECHNICALTEST_AS_ME.Domains.Services;
 using TECHNICALTEST_AS_ME.Persistence.Contexts;
 using TECHNICALTEST_AS_ME.Persistence.Repositories;
+using TECHNICALTEST_AS_ME.Security.Hashing;
 using TECHNICALTEST_AS_ME.Services;
 
 namespace TECHNICALTEST_AS_ME
@@ -38,6 +34,13 @@ namespace TECHNICALTEST_AS_ME
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
