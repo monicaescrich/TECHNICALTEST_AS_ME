@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TECHNICALTEST_AS_ME.Domains.Models
+namespace TECHNICALTEST_AS_ME.Resources
 {
-    public class Product
+    public class ProductResource
     {
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public decimal UnitPrice { get; set; }
-        public Int32 UnitsInStock {get;set;}
         public int Likes { get; set; }
-
-        public int CategoryID { get; set; }
-        public Category Category { get; set; }
     }
 }

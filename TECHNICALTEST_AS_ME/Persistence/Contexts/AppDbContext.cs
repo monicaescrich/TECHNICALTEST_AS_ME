@@ -47,8 +47,9 @@ namespace TECHNICALTEST_AS_ME.Persistence.Contexts
             builder.Entity<Product>().Property(p => p.ProductName).IsRequired().HasMaxLength(50);
             builder.Entity<Product>().Property(p => p.UnitPrice).IsRequired();
             builder.Entity<Product>().Property(p => p.UnitsInStock).IsRequired();
+           
 
-            
+
             /*Users*/
             builder.Entity<User>().ToTable("Users");
             builder.Entity<User>().HasKey(u=>u.UserId);
