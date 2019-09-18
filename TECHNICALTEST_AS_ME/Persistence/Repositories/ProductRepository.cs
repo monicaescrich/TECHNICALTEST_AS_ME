@@ -21,6 +21,10 @@ namespace TECHNICALTEST_AS_ME.Persistence.Repositories
             return await _context.Products.ToListAsync();
         }
 
+        public void Update(Product product)
+        {
+             _context.Products.Update(product);
+        }
 
         public async Task<IEnumerable<Product>> ListAsync(int limit, int offset)
         {

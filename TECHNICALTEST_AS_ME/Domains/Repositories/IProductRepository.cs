@@ -13,7 +13,8 @@ namespace TECHNICALTEST_AS_ME.Domains.Repositories
         Task<IEnumerable<Product>> ListOrderByNameAsync(int limit, int offset);
         Task<IEnumerable<Product>> ListByNameAsync(int limit, int offset,string name);
         Task<IEnumerable<Product>> ListByNameOrderByPriceAsync(int limit, int offset, string name);
-        
+  
+        void Update(Product category);
         void AddAsync(Product product);
         Task<Product> FindByIdAsync(int productId);
     }

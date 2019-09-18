@@ -50,12 +50,47 @@ namespace TECHNICALTEST_AS_ME.Services
                 return new CreateProductResponse(false, "Product ID already in use.", null);
             }
 
-            
-
              _productRepository.AddAsync(product);
             await _unitOfWork.CompleteAsync();
 
             return new CreateProductResponse(true, null, product);
+        }
+
+
+        public void Update(Product product)
+        {
+            _productRepository.Update(product);
+        }
+
+        public async Task<CreateProductResponse> UpdateAsync(int id, Product product)
+        {
+            var existingProduct = await _productRepository.FindByIdAsync(id);
+
+            if (existingProduct == null)
+                return new CreateProductResponse(false, "Product ID already in use.", null);
+
+            if (product.ProductName != null)
+                existingProduct.ProductName = product.ProductName;
+            if (product.UnitPrice != existingProduct.UnitPrice && product.UnitPrice>0)
+                existingProduct.UnitPrice = product.UnitPrice;
+            if (product.UnitsInStock != existingProduct.UnitsInStock && product.UnitsInStock > 0)
+                existingProduct.UnitsInStock = product.UnitsInStock;
+                
+
+            existingProduct.Discontinued = product.Discontinued;
+
+            try
+            {
+                _productRepository.Update(existingProduct);
+                await _unitOfWork.CompleteAsync();
+
+                return new CreateProductResponse(true, "Modified" ,existingProduct);
+            }
+            catch (Exception ex)
+            {
+                // Do some logging stuff
+                return new CreateProductResponse(true,$"An error occurred when updating the product: {ex.Message}",null);
+            }
         }
 
         public async Task<Product> FindByIdAsync(int productID)
