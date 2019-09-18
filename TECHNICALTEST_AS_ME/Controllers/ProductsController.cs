@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TECHNICALTEST_AS_ME.Domains.Models;
@@ -11,7 +12,7 @@ using TECHNICALTEST_AS_ME.Resources;
 
 namespace TECHNICALTEST_AS_ME.Controllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -26,16 +27,56 @@ namespace TECHNICALTEST_AS_ME.Controllers
 
 
         [HttpGet]
-        [Route("/api/[controller]/{limit}/{offset}")]
-        public async Task<IEnumerable<ProductResource>> GetAllAsync(int limit, int offset)
+        [Route("api/[controller]")]
+        public async Task<IEnumerable<ProductResource>> GetAllAsync(int limit, int offset, string orderBy = "")
         {
-            var products = await _productService.ListAsync(limit,offset);
+            IEnumerable<Product> products;
+            if (orderBy.ToUpper().Equals("LIKES"))
+            {
+                products = await _productService.ListAsync(limit, offset);
+            }
+            else
+            {
+                products = await _productService.ListOrderByNameAsync(limit, offset);
+            }
+            var resources = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
+
+            return resources;
+        }
+
+        [HttpGet]
+        [Route("api/GetProductByName")]
+        public async Task<IEnumerable<ProductResource>> GetProductByNameAsync(int limit, int offset, string name,string orderBy="" )
+        {
+            IEnumerable<Product> products;
+            if (orderBy.ToUpper().Equals("LIKES"))
+            {
+                 products = await _productService.ListByNameAsync(limit, offset, name);
+            }
+            else
+            {
+                 products = await _productService.ListByNameOrderByPriceAsync(limit, offset, name);
+            }
+                
+            var resources = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
+
+            return resources;
+        }
+
+        [HttpGet]
+        [Route("api/ListAllProducts")]
+        public async Task<IEnumerable<ProductResource>> ListAllAsync()
+        {
+            
+            var   products = await _productService.ListAllAsync();
             var resources = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductResource>>(products);
 
             return resources;
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        [Route("api/[controller]")]
         public async Task<IActionResult> CreateProductAsync([FromBody] ProductResource productInfo)
         {
             if (!ModelState.IsValid)
@@ -51,8 +92,8 @@ namespace TECHNICALTEST_AS_ME.Controllers
                 return BadRequest(response.Message);
             }
 
-            var userResource = _mapper.Map<Product, ProductResource>(response.Product);
-            return Ok(userResource);
+            var productResource = _mapper.Map<Product, ProductResource>(response.Product);
+            return Ok(productResource);
         }
     }
 }

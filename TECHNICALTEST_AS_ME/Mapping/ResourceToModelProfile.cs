@@ -13,6 +13,7 @@ namespace TECHNICALTEST_AS_ME.Mapping
         public ResourceToModelProfile()
         {
             CreateMap<UserCredentialsResource, User>();
+            CreateMap<ProductResource, Product>();
         }
     }
 }

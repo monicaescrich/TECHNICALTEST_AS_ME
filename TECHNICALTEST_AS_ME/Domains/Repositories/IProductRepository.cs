@@ -9,6 +9,11 @@ namespace TECHNICALTEST_AS_ME.Domains.Repositories
     public interface IProductRepository
     {
         Task<IEnumerable<Product>> ListAsync(int limit, int offset);
+        Task<IEnumerable<Product>> ListAllAsync();
+        Task<IEnumerable<Product>> ListOrderByNameAsync(int limit, int offset);
+        Task<IEnumerable<Product>> ListByNameAsync(int limit, int offset,string name);
+        Task<IEnumerable<Product>> ListByNameOrderByPriceAsync(int limit, int offset, string name);
+        
         void AddAsync(Product product);
         Task<Product> FindByIdAsync(int productId);
     }

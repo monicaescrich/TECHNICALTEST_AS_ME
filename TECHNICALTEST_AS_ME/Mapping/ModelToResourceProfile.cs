@@ -15,6 +15,7 @@ namespace TECHNICALTEST_AS_ME.Mapping
         {
             CreateMap<Category, CategoryResource>();
             CreateMap<Product, ProductResource>(); 
+            
            
             CreateMap<User, UserResource>()
                     .ForMember(u => u.Roles, opt => opt.MapFrom(u => u.UserRoles.Select(ur => ur.Role.Name)));

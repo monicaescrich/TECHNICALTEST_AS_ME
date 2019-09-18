@@ -14,17 +14,34 @@ namespace TECHNICALTEST_AS_ME.Services
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<Product>> ListAsync(int limit, int offset)
         {
             return await _productRepository.ListAsync(limit,offset);
         }
+        public async Task<IEnumerable<Product>> ListAllAsync()
+        {
+            return await _productRepository.ListAllAsync();
+        }
+        public async Task<IEnumerable<Product>> ListOrderByNameAsync(int limit, int offset)
+        {
+            return await _productRepository.ListOrderByNameAsync(limit, offset);
+        }
 
-   
+        public async Task<IEnumerable<Product>> ListByNameAsync(int limit, int offset,string name)
+        {
+            return await _productRepository.ListByNameAsync(limit, offset,name);
+        }
+        public async Task<IEnumerable<Product>> ListByNameOrderByPriceAsync(int limit, int offset, string name)
+        {
+            return await _productRepository.ListByNameOrderByPriceAsync(limit, offset, name);
+        }
+
         public async Task<CreateProductResponse> CreateProductAsync(Product product)
         {
             var existingProduct = await _productRepository.FindByIdAsync(product.ProductID);

@@ -11,5 +11,12 @@ namespace TECHNICALTEST_AS_ME.Resources
         public string ProductName { get; set; }
         public decimal UnitPrice { get; set; }
         public int Likes { get; set; }
+        public int UnitsInStock { get; set; }
+        public int CategoryID { get; set; }
+        public bool Discontinued { get; set; }
+
+
+
+
     }
 }

@@ -16,11 +16,32 @@ namespace TECHNICALTEST_AS_ME.Persistence.Repositories
         {
         }
 
-        public async Task<IEnumerable<Product>> ListAsync(int limit, int offset)
+        public async Task<IEnumerable<Product>> ListAllAsync()
         {
-            return await _context.Products.Skip(offset).Take(limit).ToListAsync();
+            return await _context.Products.ToListAsync();
         }
 
+
+        public async Task<IEnumerable<Product>> ListAsync(int limit, int offset)
+        {
+            return await _context.Products.Skip(offset).Take(limit).OrderByDescending(p=>p.Likes).ToListAsync();
+        }
+        public async Task<IEnumerable<Product>> ListOrderByNameAsync(int limit, int offset)
+        {
+            return await _context.Products.Skip(offset).Take(limit).OrderByDescending(p=>p.ProductName).ToListAsync();
+        }
+        public async Task<IEnumerable<Product>> ListByNameAsync(int limit, int offset,string name)
+        {
+            return await _context.Products.Where(p=>p.ProductName.Contains(name)).Skip(offset).Take(limit).OrderByDescending(p=>p.Likes).ToListAsync();
+        }
+
+        
+
+
+       public async Task<IEnumerable<Product>> ListByNameOrderByPriceAsync(int limit, int offset, string name)
+        {
+            return await _context.Products.Where(p => p.ProductName.Contains(name)).Skip(offset).Take(limit).OrderByDescending(p => p.UnitPrice).ToListAsync();
+        }
         public void AddAsync(Product product)
         {
             _context.Products.Add(product);
