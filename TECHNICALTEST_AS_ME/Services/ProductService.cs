@@ -75,8 +75,6 @@ namespace TECHNICALTEST_AS_ME.Services
                 existingProduct.UnitPrice = product.UnitPrice;
             if (product.UnitsInStock != existingProduct.UnitsInStock && product.UnitsInStock > 0)
                 existingProduct.UnitsInStock = product.UnitsInStock;
-            //if (product.Likes != existingProduct.Likes && product.Likes > 0)
-            //    existingProduct.Likes = existingProduct.Likes+ product.Likes;
 
 
             existingProduct.Discontinued = product.Discontinued;

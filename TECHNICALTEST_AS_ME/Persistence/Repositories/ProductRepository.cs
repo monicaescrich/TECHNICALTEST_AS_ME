@@ -18,7 +18,7 @@ namespace TECHNICALTEST_AS_ME.Persistence.Repositories
 
         public async Task<IEnumerable<Product>> ListAllAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products.Where(P => P.Discontinued == false).ToListAsync();
         }
 
         public void Update(Product product)
