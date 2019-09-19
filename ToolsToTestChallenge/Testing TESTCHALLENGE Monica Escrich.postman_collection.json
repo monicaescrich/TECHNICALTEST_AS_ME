@@ -1,0 +1,172 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Testing TESTCHALLENGE Monica Escrich",
+		"_postman_id": "08facdab-9827-0241-5175-9c893280b8d8",
+		"description": "This collection contains different scripts that allow user to test REST API \n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LogIn",
+			"description": "",
+			"item": [
+				{
+					"name": "POST Log In Administrator",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Login with credentials for administrator\nEmail: monica.escrichc@gmail.com \nPassword:12345678"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Log In Common",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"description": "",
+			"item": [
+				{
+					"name": "POST Insert New Product using Administrator",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "To Insert a new product, authentication as admin is required, to do so, send beare + token_generatedOnLogin on the header property authentication"
+					},
+					"response": []
+				},
+				{
+					"name": "Put Remove Product Using Administrator",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "The product is going to be deactivited instead of deleted"
+					},
+					"response": []
+				},
+				{
+					"name": "Put Modify UnitPrice using Administrator",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Liking a product Auth Required",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Must log in at least as a common user \n"
+					},
+					"response": []
+				},
+				{
+					"name": "List products pagination",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "For listin products paginated you must modified limit and offset variables at the url "
+					},
+					"response": []
+				},
+				{
+					"name": "List Products order by Likes",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Name",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Search products that contains name specified on url "
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Units in Stock",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List All Products ",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Buy",
+			"description": "",
+			"item": [
+				{
+					"name": "Post Buy a Product Header",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post Buy a Product Detail",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
