@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TECHNICALTEST_AS_ME.Domains.Models;
@@ -25,6 +26,7 @@ namespace TECHNICALTEST_AS_ME.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/[controller]")]
         public async Task<IActionResult> CreateOrderAsync([FromBody] OrderResource orderHeader)
         {
@@ -46,6 +48,7 @@ namespace TECHNICALTEST_AS_ME.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/DetailOrder")]
         public async Task<IActionResult> CreateDetailToOrder([FromBody] IEnumerable<OrderDetail> orderDetail)
         {

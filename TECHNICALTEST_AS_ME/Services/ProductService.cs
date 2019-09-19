@@ -9,7 +9,7 @@ using TECHNICALTEST_AS_ME.Domains.Services.Responses;
 
 namespace TECHNICALTEST_AS_ME.Services
 {
-    public class ProductService:IProductService
+    public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -22,7 +22,7 @@ namespace TECHNICALTEST_AS_ME.Services
 
         public async Task<IEnumerable<Product>> ListAsync(int limit, int offset)
         {
-            return await _productRepository.ListAsync(limit,offset);
+            return await _productRepository.ListAsync(limit, offset);
         }
         public async Task<IEnumerable<Product>> ListAllAsync()
         {
@@ -33,9 +33,9 @@ namespace TECHNICALTEST_AS_ME.Services
             return await _productRepository.ListOrderByNameAsync(limit, offset);
         }
 
-        public async Task<IEnumerable<Product>> ListByNameAsync(int limit, int offset,string name)
+        public async Task<IEnumerable<Product>> ListByNameAsync(int limit, int offset, string name)
         {
-            return await _productRepository.ListByNameAsync(limit, offset,name);
+            return await _productRepository.ListByNameAsync(limit, offset, name);
         }
         public async Task<IEnumerable<Product>> ListByNameOrderByPriceAsync(int limit, int offset, string name)
         {
@@ -50,7 +50,7 @@ namespace TECHNICALTEST_AS_ME.Services
                 return new CreateProductResponse(false, "Product ID already in use.", null);
             }
 
-             _productRepository.AddAsync(product);
+            _productRepository.AddAsync(product);
             await _unitOfWork.CompleteAsync();
 
             return new CreateProductResponse(true, null, product);
@@ -71,11 +71,13 @@ namespace TECHNICALTEST_AS_ME.Services
 
             if (product.ProductName != null)
                 existingProduct.ProductName = product.ProductName;
-            if (product.UnitPrice != existingProduct.UnitPrice && product.UnitPrice>0)
+            if (product.UnitPrice != existingProduct.UnitPrice && product.UnitPrice > 0)
                 existingProduct.UnitPrice = product.UnitPrice;
             if (product.UnitsInStock != existingProduct.UnitsInStock && product.UnitsInStock > 0)
                 existingProduct.UnitsInStock = product.UnitsInStock;
-                
+            //if (product.Likes != existingProduct.Likes && product.Likes > 0)
+            //    existingProduct.Likes = existingProduct.Likes+ product.Likes;
+
 
             existingProduct.Discontinued = product.Discontinued;
 
@@ -84,18 +86,43 @@ namespace TECHNICALTEST_AS_ME.Services
                 _productRepository.Update(existingProduct);
                 await _unitOfWork.CompleteAsync();
 
-                return new CreateProductResponse(true, "Modified" ,existingProduct);
+                return new CreateProductResponse(true, "Modified", existingProduct);
             }
             catch (Exception ex)
             {
                 // Do some logging stuff
-                return new CreateProductResponse(true,$"An error occurred when updating the product: {ex.Message}",null);
+                return new CreateProductResponse(true, $"An error occurred when updating the product: {ex.Message}", null);
             }
         }
 
         public async Task<Product> FindByIdAsync(int productID)
         {
             return await _productRepository.FindByIdAsync(productID);
+        }
+
+        public async Task<CreateProductResponse> LikeAsync(int productID, Product product)
+        {
+            var existingProduct = await _productRepository.FindByIdAsync(productID);
+
+            if (existingProduct == null)
+                return new CreateProductResponse(false, "Product ID not found.", null);
+
+            if (product.Likes != existingProduct.Likes && product.Likes > 0)
+                existingProduct.Likes += product.Likes;
+
+            try
+            {
+                _productRepository.Update(existingProduct);
+                await _unitOfWork.CompleteAsync();
+
+                return new CreateProductResponse(true, "Modified", existingProduct);
+            }
+            catch (Exception ex)
+            {
+                // Do some logging stuff
+                return new CreateProductResponse(true, $"An error occurred when updating the product: {ex.Message}", null);
+            }
+
         }
     }
 }

@@ -113,5 +113,23 @@ namespace TECHNICALTEST_AS_ME.Controllers
             var productResource = _mapper.Map<Product, ProductResource>(result.Product);
             return Ok(productResource);
         }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        [Route("api/Like/{id}")]
+        public async Task<IActionResult> PutLikeAsync(int id, [FromBody] ProductResource productUpdate)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var product = _mapper.Map<ProductResource, Product>(productUpdate);
+            var result = await _productService.LikeAsync(id, product);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var productResource = _mapper.Map<Product, ProductResource>(result.Product);
+            return Ok(productResource);
+        }
     }
 }

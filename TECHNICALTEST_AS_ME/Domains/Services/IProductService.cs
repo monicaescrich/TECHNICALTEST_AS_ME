@@ -12,6 +12,7 @@ namespace TECHNICALTEST_AS_ME.Domains.Services
         Task<CreateProductResponse> CreateProductAsync(Product product);
         
         Task<CreateProductResponse> UpdateAsync(int id, Product product);
+        Task<CreateProductResponse> LikeAsync(int id, Product product);
         Task<IEnumerable<Product>> ListAllAsync();
         Task<IEnumerable<Product>> ListAsync(int limit, int offset);
         Task<IEnumerable<Product>> ListOrderByNameAsync(int limit, int offset);
