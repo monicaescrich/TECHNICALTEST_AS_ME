@@ -14,6 +14,7 @@ namespace TECHNICALTEST_AS_ME.Mapping
         {
             CreateMap<UserCredentialsResource, User>();
             CreateMap<ProductResource, Product>();
+            CreateMap<OrderResource, Order>();
         }
     }
 }

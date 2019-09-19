@@ -51,6 +51,10 @@ namespace TECHNICALTEST_AS_ME
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
 
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
+
+
 
 
             services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));

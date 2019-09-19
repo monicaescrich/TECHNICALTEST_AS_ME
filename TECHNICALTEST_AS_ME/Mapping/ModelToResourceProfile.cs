@@ -14,7 +14,9 @@ namespace TECHNICALTEST_AS_ME.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<Category, CategoryResource>();
-            CreateMap<Product, ProductResource>(); 
+            CreateMap<Product, ProductResource>();
+            CreateMap<Order, OrderResource>();
+            CreateMap<OrderDetail, OrderDetailResource>();
             
            
             CreateMap<User, UserResource>()

@@ -15,6 +15,9 @@ namespace TECHNICALTEST_AS_ME.Persistence.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -65,6 +68,16 @@ namespace TECHNICALTEST_AS_ME.Persistence.Contexts
             builder.Entity<Role>().Property(r => r.Name).IsRequired();
 
             builder.Entity<UserRole>().HasKey(ur => new { ur.UserId, ur.IdRole });
+
+            /*Order and Details*/
+            builder.Entity<Order>().ToTable("Orders");
+            builder.Entity<Order>().HasKey(o => o.OrdersID);
+
+            builder.Entity<OrderDetail>().ToTable("Orders_Details");
+            builder.Entity<OrderDetail>().HasKey(o => o.OrderDetailID);
+
+
+
         }
 
     }
