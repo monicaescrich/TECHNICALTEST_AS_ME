@@ -12,7 +12,7 @@ namespace TECHNICALTEST_AS_ME.Resources
         public decimal UnitPrice { get; set; }
         public int Likes { get; set; }
         public int UnitsInStock { get; set; }
-        public int CategoryID { get; set; }
+        public CategoryResource Category { get; set; }
         public bool Discontinued { get; set; }
 
 

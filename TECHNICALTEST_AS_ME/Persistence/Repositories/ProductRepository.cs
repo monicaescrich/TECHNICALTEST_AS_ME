@@ -17,8 +17,8 @@ namespace TECHNICALTEST_AS_ME.Persistence.Repositories
         }
 
         public async Task<IEnumerable<Product>> ListAllAsync()
-        {
-            return await _context.Products.Where(P => P.Discontinued == false).ToListAsync();
+        {                                   
+            return await _context.Products.Where(P => P.Discontinued == false).Include(p=>p.Category).ToListAsync();
         }
 
         public void Update(Product product)
@@ -28,11 +28,11 @@ namespace TECHNICALTEST_AS_ME.Persistence.Repositories
 
         public async Task<IEnumerable<Product>> ListAsync(int limit, int offset)
         {
-            return await _context.Products.Skip(offset).Take(limit).OrderByDescending(p=>p.Likes).ToListAsync();
+            return await _context.Products.Skip(offset).Take(limit).OrderByDescending(p=>p.Likes).Include(p=>p.Category).ToListAsync();
         }
         public async Task<IEnumerable<Product>> ListOrderByNameAsync(int limit, int offset)
         {
-            return await _context.Products.Skip(offset).Take(limit).OrderByDescending(p=>p.ProductName).ToListAsync();
+            return await _context.Products.Skip(offset).Take(limit).OrderByDescending(p=>p.ProductName).Include(p=>p.Category).ToListAsync();
         }
         public async Task<IEnumerable<Product>> ListByNameAsync(int limit, int offset,string name)
         {
