@@ -36,7 +36,7 @@ namespace TECHNICALTEST_AS_ME.Persistence.Repositories
         }
         public async Task<IEnumerable<Product>> ListByNameAsync(int limit, int offset,string name)
         {
-            return await _context.Products.Where(p=>p.ProductName.Contains(name)).Skip(offset).Take(limit).OrderByDescending(p=>p.Likes).ToListAsync();
+            return await _context.Products.Where(p=>p.ProductName.Contains(name)).Skip(offset).Take(limit).OrderByDescending(p=>p.Likes).Include(p=>p.Category).ToListAsync();
         }
 
         
@@ -44,7 +44,7 @@ namespace TECHNICALTEST_AS_ME.Persistence.Repositories
 
        public async Task<IEnumerable<Product>> ListByNameOrderByPriceAsync(int limit, int offset, string name)
         {
-            return await _context.Products.Where(p => p.ProductName.Contains(name)).Skip(offset).Take(limit).OrderByDescending(p => p.UnitPrice).ToListAsync();
+            return await _context.Products.Where(p => p.ProductName.Contains(name)).Skip(offset).Take(limit).Include(p=>p.Category).OrderByDescending(p => p.UnitPrice).ToListAsync();
         }
         public void AddAsync(Product product)
         {
